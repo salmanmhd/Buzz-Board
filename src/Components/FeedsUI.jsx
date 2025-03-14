@@ -19,6 +19,7 @@ const FeedsUI = () => {
             comments={post.comments}
             caption={post.caption}
             reactions={post.reactions}
+            userProfile={post.userProfile}
           />
         );
       })}

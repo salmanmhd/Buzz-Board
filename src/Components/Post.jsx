@@ -9,6 +9,7 @@ const Post = ({
   no_of_likes,
   no_of_dislike,
   created_at,
+  userProfile,
 }) => {
   let dayBefore = new Date(created_at);
   let day = dayBefore.getDate();
@@ -34,7 +35,11 @@ const Post = ({
         <div className="userName">
           <img
             height="40"
-            src="https://storage.googleapis.com/a1aa/image/lfFVtszJ_SSrEM5E_wbgcFAFMnKDcDyDKuZf7ce3AjA.jpg"
+            src={
+              userProfile
+                ? userProfile
+                : "https://storage.googleapis.com/a1aa/image/lfFVtszJ_SSrEM5E_wbgcFAFMnKDcDyDKuZf7ce3AjA.jpg"
+            }
             width="40"
             alt=""
           />
@@ -46,7 +51,7 @@ const Post = ({
         </div>
         <p className="caption">{caption}</p>
         <div className="post-image">
-          <img src={image_url} alt="post_img" />
+          {image_url ? <img src={image_url} alt="post_img" /> : null}
         </div>
         <div className="post-buttons">
           <i className="far fa-heart text-xl"></i>

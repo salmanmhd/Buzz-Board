@@ -1,19 +1,8 @@
-import { useState, useEffect, useContext } from "react";
-import { v4 as uuid } from "uuid";
-import {
-  FaHeart,
-  FaComment,
-  FaTrash,
-  FaEdit,
-  FaCheck,
-  FaUserPlus,
-} from "react-icons/fa";
-
+import { useState, useEffect } from "react";
+import { FaHeart, FaComment, FaTrash, FaEdit, FaCheck, FaUserPlus } from "react-icons/fa";
 import "./UserProfile.css";
-import { PostContext } from "../postContextApi/PostContext";
 
 const UserProfile = () => {
-  const { setAllPosts } = useContext(PostContext);
   const storedProfile = JSON.parse(localStorage.getItem("userProfile")) || {
     name: "Priti ",
     username: "@priticode",
@@ -26,8 +15,7 @@ const UserProfile = () => {
   };
 
   const storedPosts = JSON.parse(localStorage.getItem("userPosts")) || [];
-  const storedFollowing =
-    JSON.parse(localStorage.getItem("isFollowing")) || false;
+  const storedFollowing = JSON.parse(localStorage.getItem("isFollowing")) || false;
 
   const [user, setUser] = useState(storedProfile);
   const [tweets, setTweets] = useState(storedPosts);
@@ -41,6 +29,7 @@ const UserProfile = () => {
     localStorage.setItem("isFollowing", JSON.stringify(isFollowing));
   }, [user, tweets, isFollowing]);
 
+  
   const handleImageUpload = (event, field) => {
     const file = event.target.files[0];
     if (file) {
@@ -48,7 +37,7 @@ const UserProfile = () => {
       reader.onloadend = () => {
         setUser((prevUser) => {
           const updatedUser = { ...prevUser, [field]: reader.result };
-          localStorage.setItem("userProfile", JSON.stringify(updatedUser));
+          localStorage.setItem("userProfile", JSON.stringify(updatedUser)); 
           return updatedUser;
         });
       };
@@ -68,6 +57,11 @@ const UserProfile = () => {
       reader.readAsDataURL(file);
     }
   };
+  
+
+
+  
+  
 
   const handleEditToggle = () => setIsEditing(!isEditing);
 
@@ -103,37 +97,24 @@ const UserProfile = () => {
     if (newTweetText.trim() !== "") {
       const newTweet = {
         text: newTweetText,
-        timestamp: Date.now(),
+        timestamp: Date.now(), 
         user,
         likes: 0,
         comments: 0,
       };
-
+  
       const updatedTweets = [newTweet, ...tweets];
-
       setTweets(updatedTweets);
-
-      // newPost object to be added in the allPost state variable
-      let newPost = {
-        id: uuid(),
-        created_at: newTweet.timestamp,
-        userProfile: user.profilePic,
-        username: user.username,
-        caption: newTweet.text,
-        comments: [],
-        no_of_likes: 0,
-        no_of_dislike: 0,
-      };
-
-      setAllPosts((prevPosts) => [newPost, ...prevPosts]);
-
+  
+     
       localStorage.setItem("userPosts", JSON.stringify(updatedTweets));
-
+  
       setUser((prevUser) => ({ ...prevUser, posts: prevUser.posts + 1 }));
-      localStorage.setItem("userProfile", JSON.stringify(user));
+      localStorage.setItem("userProfile", JSON.stringify(user)); 
       setNewTweetText("");
     }
   };
+  
 
   const handleDeleteTweet = (index) => {
     if (window.confirm("Are you sure you want to delete this tweet?")) {
@@ -165,21 +146,26 @@ const UserProfile = () => {
   return (
     <div className="user-container">
       <div
-        className="profile-header"
-        style={{
-          backgroundImage: `url(${user.backgroundPic})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden-input"
-          id="backgroundUpload"
-          onClick={(e) => handleBackgroundUpload(e, "backgroundImage")}
-        />
-      </div>
+  className="profile-header"
+  style={{
+    backgroundImage: `url(${user.backgroundPic})`, 
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <input
+    type="file"
+    accept="image/*"
+    className="hidden-input"
+    id="backgroundUpload"
+    onChange={(e) => handleBackgroundUpload(e, "backgroundImage")}
+  />
+{/* 
+  <label htmlFor="backgroundUpload" className="edit-background-btn">
+    Change Background
+  </label> */}
+</div>
+
 
       <div className="profile-pic-container">
         <input
@@ -203,7 +189,6 @@ const UserProfile = () => {
               onChange={(e) => handleInputChange("name", e.target.value)}
               className="edit-input"
             />
-
             <input
               type="text"
               value={user.username}
@@ -232,8 +217,7 @@ const UserProfile = () => {
 
         <div className="btn-group">
           <button onClick={handleEditToggle} className="profile-btn">
-            {isEditing ? <FaCheck /> : <FaEdit />}{" "}
-            {isEditing ? "Save" : "Edit Profile"}
+            {isEditing ? <FaCheck /> : <FaEdit />} {isEditing ? "Save" : "Edit Profile"}
           </button>
           <button onClick={handleFollowToggle} className="profile-btn">
             <FaUserPlus /> {isFollowing ? "Unfollow" : "Follow"}
@@ -250,7 +234,7 @@ const UserProfile = () => {
           className="tweet-input"
         />
         <button onClick={handleAddTweet} className="tweet-btn">
-          Post
+          Tweet
         </button>
       </div>
 
@@ -258,16 +242,10 @@ const UserProfile = () => {
         {tweets.map((tweet, index) => (
           <div key={index} className="tweet-item">
             <div className="tweet-header">
-              <img
-                src={tweet.user.profilePic}
-                alt="User"
-                className="tweet-user-pic"
-              />
+              <img src={tweet.user.profilePic} alt="User" className="tweet-user-pic" />
               <div className="tweet-user-info">
                 <span className="tweet-user-name">{tweet.user.name}</span>
-                <span className="tweet-time">
-                  {formatTime(tweet.timestamp)}
-                </span>
+                <span className="tweet-time">{formatTime(tweet.timestamp)}</span>
               </div>
             </div>
 
@@ -280,10 +258,7 @@ const UserProfile = () => {
               <button onClick={() => handleComment(index)} className="like-btn">
                 <FaComment /> {tweet.comments}
               </button>
-              <button
-                onClick={() => handleDeleteTweet(index)}
-                className="delete-btn"
-              >
+              <button onClick={() => handleDeleteTweet(index)} className="delete-btn">
                 <FaTrash />
               </button>
             </div>
