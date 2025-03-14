@@ -7,7 +7,7 @@ const FeedsUI = () => {
 
   return (
     <div className="feedPosts">
-      {Allposts.map((post) => {
+      {Allposts.slice(0, 10).map((post) => {
         return (
           <Post
             id={post.id}
