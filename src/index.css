@@ -1,0 +1,75 @@
+<<<<<<< HEAD
+=======
+@import "tailwindcss";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.feedPosts {
+  display: grid;
+  grid-template-columns: repeat(repeat, minmax(350px));
+  gap: 1rem;
+  /* padding: 1rem; */
+  justify-items: center;
+}
+
+.post {
+  min-width: 560px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.userName {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(161, 159, 159);
+
+  margin-bottom: 1rem;
+}
+
+.userName h2 {
+  font-weight: 700;
+}
+.userName img {
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.post-image {
+  width: 100%;
+}
+.post-image img {
+  width: 100%;
+  max-height: 50vh;
+  margin: 0.4rem;
+  border-radius: 7px;
+}
+
+.post-buttons,
+.post-likes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-buttons i {
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.post-buttons i:hover {
+  background: #bbb5b5;
+
+  border-radius: 50%;
+  cursor: pointer;
+}
+.post-likes p span {
+  font-weight: 300;
+  color: grey;
+}
+>>>>>>> origin/prasad
