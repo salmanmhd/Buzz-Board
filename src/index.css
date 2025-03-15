@@ -51,6 +51,7 @@
 
 .post-buttons,
 .post-likes {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
 }
