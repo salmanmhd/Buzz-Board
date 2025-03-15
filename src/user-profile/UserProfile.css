@@ -8,6 +8,7 @@
 .user-container {
   max-width: 600px;
   margin: auto;
+  margin-top: 1rem;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -20,7 +21,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  background: #000;
+  background: #09520d;
 }
 
 .edit-background-btn {

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-@import "tailwindcss";
-
 * {
   padding: 0;
   margin: 0;
@@ -72,4 +68,31 @@
   font-weight: 300;
   color: grey;
 }
->>>>>>> origin/prasad
+
+.nav {
+  background: #2692b3;
+  color: white;
+  padding: 8px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav p {
+  color: white;
+  font-weight: bolder;
+  font-size: 22px;
+}
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: bold;
+  background-color: white;
+  padding: 7px;
+  color: black;
+  border-radius: 1rem;
+}
+.nav img {
+  width: 30px;
+  border-radius: 50%;
+}

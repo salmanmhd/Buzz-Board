@@ -148,11 +148,11 @@ const UserProfile = () => {
     setTweets(updatedTweets);
   };
 
-  const handleComment = (index) => {
-    const updatedTweets = [...tweets];
-    updatedTweets[index].comments += 1;
-    setTweets(updatedTweets);
-  };
+  // const handleComment = (index) => {
+  //   const updatedTweets = [...tweets];
+  //   updatedTweets[index].comments += 1;
+  //   setTweets(updatedTweets);
+  // };
 
   const handleFollowToggle = () => {
     setIsFollowing(!isFollowing);
@@ -177,7 +177,7 @@ const UserProfile = () => {
           accept="image/*"
           className="hidden-input"
           id="backgroundUpload"
-          onClick={(e) => handleBackgroundUpload(e, "backgroundImage")}
+          onChange={(e) => handleBackgroundUpload(e, "backgroundImage")}
         />
       </div>
 

@@ -17,7 +17,6 @@ const PostContextProvider = ({ children }) => {
       {children}
     </PostContext.Provider>
   );
-  zz;
 };
 
 export default PostContextProvider;
