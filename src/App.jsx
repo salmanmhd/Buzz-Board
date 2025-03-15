@@ -1,10 +1,9 @@
 import React from "react";
-import FeedsUi from "./Components/FeedsUI";
 
 const App = () => {
   return (
     <div className="app">
-      <FeedsUi />
+      <h1>Hello, Vite + React!</h1>
     </div>
   );
 };
