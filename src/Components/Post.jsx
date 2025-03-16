@@ -29,7 +29,7 @@ const Post = ({
       setShowCommentBox(false);
     }
   };
-  const toggleCommentBox = () => setShowCommentBox(!showCommentBox);
+
   const handleCommentParagraph = () => setShowCommentBox(true);
 
   // Formatting the date
@@ -60,21 +60,15 @@ const Post = ({
         <div className="post-image">
           <img src={image_url} alt="post_img" />
         </div>
+       
         {/* Post buttons */}
         <div className="post-buttons">
-          <span onClick={handleLike}><i className="far fa-heart text-xl"></i></span>
-          <span onClick={handleDislike}><i className="far fa-thumbs-down text-xl"></i></span>
-          <span onClick={toggleCommentBox}><i className="far fa-comment text-xl"></i></span>
-          <span><i className="far fa-paper-plane text-xl"></i></span>
-        </div>
-        {/* Post statistics */}
-        <div className="post-likes">
           <p onClick={handleLike}><span>{likes}</span> Likes</p>
           <p onClick={handleDislike}><span>{dislikes}</span> Dislike</p>
           <p onClick={handleCommentParagraph}><span>{commentList.length}</span> Comments</p>
           <p>Share</p>
         </div>
-        <br/>
+
         {/* Comment box */}
         {showCommentBox && (
           <div className="comment-box">
@@ -84,7 +78,7 @@ const Post = ({
               onChange={handleCommentChange}
               placeholder="Add a comment"
             />
-            <span onClick={handleCommentSubmit}>Submit</span>
+            <span onClick={handleCommentSubmit}> Submit</span>
           </div>
         )}
       </div>
