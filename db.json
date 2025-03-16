@@ -1,0 +1,89 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "username": "johndoe",
+        "email": "john@example.com"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "username": "janesmith",
+        "email": "jane@example.com"
+      },
+      {
+        "id": 3,
+        "name": "Adinath Chaudhari",
+        "username": "adinath",
+        "email": "adinath@example.com"
+      },
+      {
+        "id": 4,
+        "name": "Mahesh Sawant",
+        "username": "Mahesh@9936",
+        "email": "maheshsawant6453@gmail.com"
+      },
+      {
+        "id": 5,
+        "name": "Kakade Nitin",
+        "username": "Nitin@633",
+        "email": "kakadenitin654@gmail.com"
+      }
+
+    ],
+    "posts":[
+      {
+        "id": 1,
+        "image_url": "https://picsum.photos/seed/1/200/300",
+        "no_of_likes": 368,
+        "no_of_dislike": 21,
+        "reactions": "\ud83d\udcaf",
+        "created_at": "2024-03-28 08:22:03",
+        "comments": [
+          "Couldn\u2019t have said it better!",
+          "Great post!",
+          "Love this!",
+          "Amazing content!",
+          "I totally agree!"
+        ],
+        "username": "coder_joe",
+        "caption": "Frontend magic! \ud83c\udfa8"
+      },
+      {
+
+      },
+      {
+        "id": 2,
+        "image_url": "https://picsum.photos/seed/2/200/300",
+        "no_of_likes": 172,
+        "no_of_dislike": 66,
+        "reactions": "\ud83d\ude0d",
+        "created_at": "2024-10-14 08:22:03",
+        "comments": [
+          "Love this!",
+          "Amazing content!",
+          "Awesome!",
+          "Keep up the great work!",
+          "Very helpful, thanks!"
+        ],
+        "username": "js_whiz",
+        "caption": "Another day, another code! \ud83d\ude80"
+      },
+      {
+        "id": 3,
+        "image_url": "https://picsum.photos/seed/3/200/300",
+        "no_of_likes": 338,
+        "no_of_dislike": 4,
+        "reactions": "\ud83d\ude0d",
+        "created_at": "2025-02-03 08:22:03",
+        "comments": [
+          "Awesome!",
+          "Very helpful, thanks!",
+          "Nice picture!",
+          "Amazing content!"
+        ]
+        
+      }
+    ]
+  }
