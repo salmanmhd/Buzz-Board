@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FaRegHeart, FaShare } from "react-icons/fa";
+import { BiCommentDots } from "react-icons/bi";
 const Post = ({
   image_url,
   id,
@@ -10,115 +12,50 @@ const Post = ({
   created_at,
   userProfile,
 }) => {
-  // State hooks for likes, dislikes, comments, new comment, and comment box visibility
-  const [likes, setLikes] = useState(no_of_likes);
-  const [dislikes, setDislikes] = useState(no_of_dislike);
-  const [commentList, setCommentList] = useState(comments);
-  const [newComment, setNewComment] = useState("");
-  const [showCommentBox, setShowCommentBox] = useState(false);
+  const formatTime = (timestamp) => {
+    const now = Date.now();
+    const diff = Math.floor((now - timestamp) / 1000);
 
-  // Handlers for like, dislike, comment change, comment submit, and toggling comment box
-  const handleLike = () => setLikes(likes + 1);
-  const handleDislike = () => setDislikes(dislikes + 1);
-  const handleCommentChange = (e) => setNewComment(e.target.value);
-  const handleCommentSubmit = () => {
-    if (newComment) {
-      setCommentList([...commentList, newComment]);
-      setNewComment("");
-      setShowCommentBox(false);
-    }
+    if (diff < 60) return "Just now";
+    if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+    return new Date(timestamp).toLocaleString();
   };
-  const toggleCommentBox = () => setShowCommentBox(!showCommentBox);
-  const handleCommentParagraph = () => setShowCommentBox(true);
-
-  let dayBefore = new Date(created_at);
-  let day = dayBefore.getDate();
-  let months = [
-    "jan",
-    "feb",
-    "mar",
-    "apr",
-    "may",
-    "jun",
-    "jul",
-    "aug",
-    "sep",
-    "oct",
-    "nov",
-    "dec",
-  ];
-  let month = months[dayBefore.getMonth()];
 
   return (
     <>
       <div key={id} className="post">
-        {/* User information */}
-        <div className="userName">
+        <div className="post-top">
+          <img src={userProfile} alt="" />
+          <div className="userName">
+            <p> {username} </p>
+            <span>@{username}</span>
+          </div>
+          <p className="created_at">{formatTime(created_at)}</p>
+        </div>
+        <p className="caption">{caption}</p>
+        <div className="like-section">
+          <span>
+            <FaRegHeart />
+            {no_of_likes}
+          </span>
+          <span>
+            <BiCommentDots />
+            {comments.length}
+          </span>
+          <span>
+            <FaShare />
+            {0}
+          </span>
+        </div>
+
+        <div className="comment-section">
           <img
-            height="40"
-            src={
-              userProfile
-                ? userProfile
-                : "https://storage.googleapis.com/a1aa/image/lfFVtszJ_SSrEM5E_wbgcFAFMnKDcDyDKuZf7ce3AjA.jpg"
-            }
-            width="40"
+            src="https://th.bing.com/th/id/OIP.ZP-E8ZFH11wb1XSm0dn-5wHaJQ?rs=1&pid=ImgDetMain"
             alt=""
           />
-          <h2>{username}</h2>
-          <span>
-            .{month} {day}
-          </span>
+          <input type="text" placeholder="Comments " />
         </div>
-        {/* Post caption */}
-        <p className="caption">{caption}</p>
-        {/* Post image */}
-        <div className="post-image">
-          {image_url && <img src={image_url} alt="post_img" />}
-        </div>
-        {/* Post buttons */}
-        <div className="post-buttons">
-          <span onClick={handleLike}>
-            <i className="far fa-heart text-xl"></i>
-          </span>
-          <span onClick={handleDislike}>
-            <i className="far fa-thumbs-down text-xl"></i>
-          </span>
-          <span onClick={toggleCommentBox}>
-            <i className="far fa-comment text-xl"></i>
-          </span>
-          <span>
-            <i className="far fa-paper-plane text-xl"></i>
-          </span>
-        </div>
-        {/* Post statistics */}
-        <div className="post-likes">
-          <p onClick={handleLike}>
-            <span>{likes}</span> Likes
-          </p>
-          <p onClick={handleDislike}>
-            <span>{dislikes}</span> Dislike
-          </p>
-          <p onClick={handleCommentParagraph}>
-            <span>{commentList.length}</span> Comments
-          </p>
-          <p>Share</p>
-        </div>
-        <br />
-        {/* Comment box */}
-        {showCommentBox && (
-          <>
-            <hr />
-            <div className="comment-box">
-              <input
-                type="text"
-                value={newComment}
-                onChange={handleCommentChange}
-                placeholder="Add a comment"
-              />
-              <button onClick={handleCommentSubmit}>Submit</button>
-            </div>
-          </>
-        )}
       </div>
     </>
   );

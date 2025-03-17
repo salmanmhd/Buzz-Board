@@ -5,129 +5,294 @@
   font-family: sans-serif;
 }
 
-/* nav styles */
-.nav {
-  background: #2692b3;
-  color: white;
-  padding: 8px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.feed-nav {
+  margin-bottom: 2rem;
 }
-.nav p {
-  color: white;
-  font-weight: bolder;
-  font-size: 22px;
+.feed-nav {
+  background: rgb(98, 98, 247);
 }
-.userProfile {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-weight: bold;
+
+.search-bar input {
+  border: none;
+  outline: none;
   background-color: white;
-  padding: 7px;
+  padding: 10px 25px;
+  border-radius: 7px;
   color: black;
-  border-radius: 1rem;
 }
-.nav img {
-  width: 30px;
+input:focus {
+  border: 1px solid black;
+}
+.search-bar input::placeholder {
+  color: rgb(122, 120, 120);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.6rem;
+  padding: 7px;
+}
+.nav-links span {
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.profile-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.profile-nav img {
+  height: 45px;
+  width: 45px;
   border-radius: 50%;
 }
 
-/* feed ui styles */
-
-.feedPosts {
-  display: grid;
-  grid-template-columns: repeat(repeat, minmax(350px));
-  gap: 1rem;
-  /* padding: 1rem; */
-  justify-items: center;
+.feed-nav button {
+  background: black;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 1rem;
+  font-weight: bolder;
 }
 
-/* post component styles */
-.post {
-  min-width: 560px;
-  /* border: 1px solid #fffdfd; */
-  border-radius: 10px;
+/* create post style */
+.create-post-section {
+  background: rgb(200, 205, 250);
+  min-height: 70px;
   padding: 1rem;
-  margin: 1rem;
-  background: #fffdfd;
-  box-shadow: 0 7px 10px rgb(100, 98, 98);
+  border-radius: 6px;
+  box-shadow: 0 5px 5px grey;
+  margin-bottom: 2rem;
 }
 
-.post .caption {
-  color: rgb(38, 39, 38);
-  font-weight: 600;
-  padding: 10px 6px;
+.create-post-input {
+  display: flex;
+  gap: 1rem;
+}
+
+.create-post-input img {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+}
+
+.create-post-input input {
+  background: white;
+  color: black;
+  width: 100%;
+  padding: 6px 9px;
+  border-radius: 7px;
+  transition: all 0.5s ease-in;
+}
+
+.create-post-input button {
+  background: rgb(9, 9, 224);
+  color: white;
+  padding: 10px 19px;
+  height: 45px;
+  border-radius: 7px;
+  font-weight: bold;
+}
+.create-post-input input:hover {
+  transition: all 0.4s ease;
+  height: 100px;
+}
+
+.create-post-input input::placeholder {
+  color: grey;
+}
+
+/* post component style */
+.post {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 2px 4px 7px black;
+  margin-bottom: 2.3rem;
+  padding: 0.9rem 0.4rem;
+}
+
+.post-top {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 0.9rem;
+  padding: 5px 9px;
+}
+
+.post-top img {
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+  margin-right: 1.5rem;
 }
 
 .userName {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid rgb(161, 159, 159);
+}
 
+.userName p {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.userName span {
+  font-size: 15px;
+}
+
+.post-top .created_at {
+  position: absolute;
+  right: 1rem;
+  font-size: 10px;
+}
+
+.caption {
+  padding: 0.3rem;
+  font-weight: bold;
   margin-bottom: 1rem;
 }
 
-.userName h2 {
-  font-weight: 700;
-}
-.userName img {
-  border-radius: 50%;
-  margin-right: 1rem;
-}
-
-.post-image {
-  width: 100%;
-}
-.post-image img {
-  width: 100%;
-  max-height: 50vh;
-  margin: 0.4rem;
-  border-radius: 7px;
-}
-
-.post-buttons,
-.post-likes {
+.like-section {
   display: flex;
   justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+.like-section svg {
+  font-size: 25px;
 }
 
-.post-buttons i {
-  padding: 6px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.post-buttons i:hover {
-  background: #bbb5b5;
-
-  border-radius: 50%;
-  cursor: pointer;
-}
-.post-likes p span {
-  font-weight: 300;
-  color: grey;
-}
-
-.comment-box {
-  padding: 1rem;
+.comment-section {
   display: flex;
   gap: 1rem;
-  justify-content: end;
+  margin-left: 0.3rem;
+  margin-top: 0.4rem;
 }
-
-.comment-box input {
-  border: 1px solid black;
-  padding: 7px;
+.comment-section img {
+  height: 50px;
+  width: 50px;
   border-radius: 9px;
 }
 
-.comment-box input::placeholder {
-  color: black;
+.comment-section input {
+  background-color: rgb(220, 220, 252);
+  width: 80%;
+  border: none;
+  outline: none;
+  padding: 4px 8px;
+  border-radius: 3rem;
 }
-.comment-box button {
+
+.comment-section input::placeholder {
+  color: grey;
+}
+
+/* left nav style */
+.left-nav {
+  background: rgb(200, 205, 250);
+  padding: 1.2rem;
+  border-radius: 9px;
+  margin: 0 1rem;
+}
+
+.left-nav .profile-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 5.8rem;
+}
+.profile-card .background-image {
+  width: 100%;
+  height: 140px;
+  border-radius: 12px;
+}
+
+.profile-card .profile_img {
+  position: absolute;
+  top: 100px;
+  left: 35%;
+}
+
+.profile_img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 9px;
+}
+
+.profileActivity {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.profileActivity .activity {
+  position: relative;
+  display: flex;
+  margin-left: 5rem;
+
+  align-items: center;
+}
+
+.activity svg {
+  font-size: 36px;
+  position: absolute;
+  right: 3rem;
+}
+
+.left-nav .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.buttons button {
   background: #000;
   color: white;
-  padding: 7px 15px;
+  padding: 10px 20px;
   border-radius: 8px;
+}
+
+.buttons button:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+/* right nav styles */
+.right-nav {
+  background: white;
+  padding: 1.2rem;
+  border-radius: 9px;
+}
+
+.right-nav-suggestion-card,
+.right-nav-activity-card {
+  background: rgb(200, 205, 250);
+  padding: 1.2rem;
+  border-radius: 9px;
+  margin-bottom: 1.5rem;
+  margin-top: -1rem;
+}
+/* scrollbar style
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Scrollbar width */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track background */
+  border-radius: 15px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff7e5f, #feb47b); /* Gradient effect */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  /* background: linear-gradient(180deg, #ff6a4d, #fea760); Darker on hover */
 }
