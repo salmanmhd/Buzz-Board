@@ -1,4 +1,4 @@
-/* General Styles */
+
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500&display=swap');
 
 .profile-container {
@@ -12,7 +12,7 @@
   position: relative;
 }
 
-/* Background Image */
+
 .background {
   width: 100%;
   height: 200px;
@@ -26,20 +26,20 @@
   object-fit: cover;
 }
 
-/* Profile Picture */
+
 .profile-pic img {
   width: 220px;
   height: 220px;
   border-radius: 10px;
   border: 3px solid white;
   position: absolute;
-  top: 80px; /* Adjusted to prevent overlap */
+  top: 80px; 
   left: 50%;
   transform: translateX(-50%);
   background: white;
 }
 
-/* Profile Left & Right Sections */
+
 .profile-left, .profile-right {
   position: absolute;
   top: 220px;
@@ -108,7 +108,7 @@
  
 }
 
-/* Navigation Icons */
+
 .nav-icons {
   display: flex;
   justify-content: center;
@@ -121,25 +121,25 @@
   cursor: pointer;
 }
 
-/* Edit Form */
+
 .edit-section {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
-/* Edit Form Section */
+
 .edit-section {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-}/* Scrollable Container */
+}
 .profiles-scroll {
-  max-height: 600px; /* Adjust height as needed */
+  max-height: 600px; 
   overflow-y: auto;
   padding-right: 10px;
 }
 
-/* Scrollbar Styling */
+
 .profiles-scroll::-webkit-scrollbar {
   width: 150px;
 }
@@ -153,15 +153,15 @@
   background: #f1f1f1;
 }
 
-/* Other Profiles Styling */
+
 .other-profiles {
-  width: 220px; /* Adjust width as needed */
+  width: 220px; 
   padding: 10px;
   border-radius: 8px;
   background: #f9f9f9;
 }
 
-/* User Item */
+
 .other-user {
   display: flex;
   flex-direction: column;
@@ -170,19 +170,19 @@
   background: #ffffff;
  
   border-radius: 10px;
-  width: 180px; /* Adjust width */
+  width: 180px;
   text-align: center;
   margin-bottom: 8px;
 }
 
-/* User Info */
+
 .user-info {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* Profile Image */
+
 .other-user-img {
   width: 40px;
   height: 40px;
@@ -195,7 +195,7 @@
   background: white;
 }
 
-/* User Name */
+
 .user-name {
   font-size: 14px;
   font-weight: bold;
@@ -205,7 +205,7 @@
  
 }
 
-/* Follow Button */
+
 .follow-btn {
   font-size: 10px;
   padding: 2px 8px;
@@ -225,7 +225,7 @@
 }
 
 
-/* Edit Form Section */
+
 .edit-section {
   display: flex;
   justify-content: center;
@@ -372,7 +372,6 @@ margin-bottom: 50px;
 
 
 
-/* Responsive */
 @media (max-width: 768px) {
   .edit-section {
     flex-direction: column;
@@ -389,20 +388,20 @@ margin-bottom: 50px;
 }
 
 
-/* Responsive: Adjust for Small Screens */
+
 @media (max-width: 768px) {
   .posts-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 per row on smaller screens */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
 @media (max-width: 480px) {
   .posts-grid {
-    grid-template-columns: repeat(1, 1fr); /* 1 per row on very small screens */
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
-/* General Mobile Responsive Styles */
+
 @media (max-width: 1024px) {
   .profile-left,
   .profile-right {
@@ -431,7 +430,7 @@ margin-bottom: 50px;
   }
 }
 
-/* Tablets and Medium Screens */
+
 @media (max-width: 768px) {
   .profile-container {
     width: 95%;

@@ -15,7 +15,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user data
+       
         const userData = {
           name: "priti M",
           bio: "priti@123",
@@ -25,11 +25,11 @@ const UserProfile = () => {
           following: 300
         };
 
-        // Fetch other users
+        
         const usersResponse = await fetch("/users.json");
         const usersData = await usersResponse.json();
 
-        // Fetch posts
+        
         const postsResponse = await fetch("/posts.json");
         const postsData = await postsResponse.json();
 
@@ -37,7 +37,7 @@ const UserProfile = () => {
         setEditedUser({ name: userData.name, bio: userData.bio });
         setOtherUsers(usersData);
 
-        // Add "liked" property to posts
+       
         const updatedPosts = postsData.map(post => ({ ...post, liked: false }));
         setPosts(updatedPosts);
 
@@ -51,7 +51,7 @@ const UserProfile = () => {
     fetchData();
   }, []);
 
-  // Toggle Follow/Following
+  
   const handleFollowToggle = (userId) => {
     setOtherUsers((prevUsers) =>
       prevUsers.map((user) =>
@@ -60,7 +60,7 @@ const UserProfile = () => {
     );
   };
 
-  // Handle like/unlike
+ 
   const handleLikeToggle = (postId) => {
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
@@ -73,13 +73,13 @@ const UserProfile = () => {
 
   const handleEditClick = () => {
     setIsEditing(true);
-    setShowOtherProfiles(true); // Show other profiles when the edit form is opened
+    setShowOtherProfiles(true); 
   };
 
   const handleSaveClick = () => {
     setUser({ ...user, ...editedUser });
     setIsEditing(false);
-    setShowOtherProfiles(false); // Hide other profiles when the form is submitted
+    setShowOtherProfiles(false); 
   };
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -132,7 +132,7 @@ const UserProfile = () => {
 
       {isEditing && (
   <div className="edit-section">
-    {/* Other Profiles - Left Side */}
+  
     {showOtherProfiles && (
       <div className="other-profiles left">
         <div className="profiles-scroll">
@@ -154,7 +154,7 @@ const UserProfile = () => {
       </div>
     )}
 
-    {/* Edit Form - Center */}
+   
     <div className="edit-form">
       <input
         type="text"
@@ -183,7 +183,7 @@ const UserProfile = () => {
       <button className="save-btn" onClick={handleSaveClick}>Submit</button>
     </div>
 
-    {/* Other Profiles - Right Side */}
+    
     {showOtherProfiles && (
       <div className="other-profiles right">
         <div className="profiles-scroll">
@@ -207,7 +207,7 @@ const UserProfile = () => {
   </div>
 )}
 
-  {/* ✅ Integrated Post Section Directly */}
+ 
   <div className="posts-section">
         {posts.length === 0 ? (
           <p>No posts available.</p>
