@@ -1,272 +1,237 @@
-import { useState, useEffect } from "react";
-import { FaHeart, FaComment, FaTrash, FaEdit, FaCheck, FaUserPlus } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaShareAlt, FaUserEdit, FaUsers, FaUserCheck, FaHeart, FaRegHeart } from "react-icons/fa";
 import "./UserProfile.css";
+import { FaHome, FaPlus, FaComment, FaLocationArrow, FaArrowUp} from "react-icons/fa";
 
 const UserProfile = () => {
-  const storedProfile = JSON.parse(localStorage.getItem("userProfile")) || {
-    name: "Priti ",
-    username: "@priticode",
-    bio: "Exploring Nature",
-    profilePic: "https://via.placeholder.com/150",
-    backgroundPic: "https://source.unsplash.com/random/800x600?nature",
-    posts: 0,
-    followers: 100,
-    following: 50,
-  };
-
-  const storedPosts = JSON.parse(localStorage.getItem("userPosts")) || [];
-  const storedFollowing = JSON.parse(localStorage.getItem("isFollowing")) || false;
-
-  const [user, setUser] = useState(storedProfile);
-  const [tweets, setTweets] = useState(storedPosts);
-  const [newTweetText, setNewTweetText] = useState("");
+  const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(storedFollowing);
+  const [editedUser, setEditedUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [showOtherProfiles, setShowOtherProfiles] = useState(true);
+  const [otherUsers, setOtherUsers] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("userProfile", JSON.stringify(user));
-    localStorage.setItem("userPosts", JSON.stringify(tweets));
-    localStorage.setItem("isFollowing", JSON.stringify(isFollowing));
-  }, [user, tweets, isFollowing]);
+    const fetchData = async () => {
+      try {
+        // Fetch user data
+        const userData = {
+          name: "priti M",
+          bio: "priti@123",
+          image: "g.jpg",
+          background: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXa-Cc3DouVXhN8lkzJYjcYKHAwYmhPqYAQA&s",
+          followers: 1200,
+          following: 300
+        };
 
-  
-  const handleImageUpload = (event, field) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUser((prevUser) => {
-          const updatedUser = { ...prevUser, [field]: reader.result };
-          localStorage.setItem("userProfile", JSON.stringify(updatedUser)); 
-          return updatedUser;
-        });
-      };
-      reader.readAsDataURL(file);
-    }
+        // Fetch other users
+        const usersResponse = await fetch("/users.json");
+        const usersData = await usersResponse.json();
+
+        // Fetch posts
+        const postsResponse = await fetch("/posts.json");
+        const postsData = await postsResponse.json();
+
+        setUser(userData);
+        setEditedUser({ name: userData.name, bio: userData.bio });
+        setOtherUsers(usersData);
+
+        // Add "liked" property to posts
+        const updatedPosts = postsData.map(post => ({ ...post, liked: false }));
+        setPosts(updatedPosts);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Toggle Follow/Following
+  const handleFollowToggle = (userId) => {
+    setOtherUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === userId ? { ...user, following: !user.following } : user
+      )
+    );
   };
 
-  const handleBackgroundUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const updatedUser = { ...user, backgroundPic: reader.result };
-        setUser(updatedUser);
-        localStorage.setItem("userProfile", JSON.stringify(updatedUser)); // Save immediately
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  
-
-
-  
-  
-
-  const handleEditToggle = () => setIsEditing(!isEditing);
-
-  const handleInputChange = (field, value) => {
-    setUser((prevUser) => ({ ...prevUser, [field]: value }));
+  // Handle like/unlike
+  const handleLikeToggle = (postId) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 }
+          : post
+      )
+    );
   };
 
-  const formatTime = (timestamp) => {
-    const now = Date.now();
-    const diff = Math.floor((now - timestamp) / 1000);
-
-    if (diff < 60) return "Just now";
-    if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
-    return new Date(timestamp).toLocaleString();
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setShowOtherProfiles(true); // Show other profiles when the edit form is opened
   };
 
-  // const handleAddTweet = () => {
-  //   if (newTweetText.trim() !== "") {
-  //     const newTweet = {
-  //       text: newTweetText,
-  //       timestamp: Date.now(),
-  //       user,
-  //       likes: 0,
-  //       comments: 0,
-  //     };
-  //     setTweets([newTweet, ...tweets]);
-  //     setUser((prevUser) => ({ ...prevUser, posts: prevUser.posts + 1 }));
-  //     setNewTweetText("");
-  //   }
-  // };
-  const handleAddTweet = () => {
-    if (newTweetText.trim() !== "") {
-      const newTweet = {
-        text: newTweetText,
-        timestamp: Date.now(), 
-        user,
-        likes: 0,
-        comments: 0,
-      };
-  
-      const updatedTweets = [newTweet, ...tweets];
-      setTweets(updatedTweets);
-  
-     
-      localStorage.setItem("userPosts", JSON.stringify(updatedTweets));
-  
-      setUser((prevUser) => ({ ...prevUser, posts: prevUser.posts + 1 }));
-      localStorage.setItem("userProfile", JSON.stringify(user)); 
-      setNewTweetText("");
-    }
-  };
-  
-
-  const handleDeleteTweet = (index) => {
-    if (window.confirm("Are you sure you want to delete this tweet?")) {
-      setTweets(tweets.filter((_, i) => i !== index));
-      setUser((prevUser) => ({ ...prevUser, posts: prevUser.posts - 1 }));
-    }
+  const handleSaveClick = () => {
+    setUser({ ...user, ...editedUser });
+    setIsEditing(false);
+    setShowOtherProfiles(false); // Hide other profiles when the form is submitted
   };
 
-  const handleLike = (index) => {
-    const updatedTweets = [...tweets];
-    updatedTweets[index].likes += 1;
-    setTweets(updatedTweets);
-  };
-
-  const handleComment = (index) => {
-    const updatedTweets = [...tweets];
-    updatedTweets[index].comments += 1;
-    setTweets(updatedTweets);
-  };
-
-  const handleFollowToggle = () => {
-    setIsFollowing(!isFollowing);
-    setUser((prevUser) => ({
-      ...prevUser,
-      followers: isFollowing ? prevUser.followers - 1 : prevUser.followers + 1,
-    }));
-  };
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
-    <div className="user-container">
-      <div
-  className="profile-header"
-  style={{
-    backgroundImage: `url(${user.backgroundPic})`, 
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  <input
-    type="file"
-    accept="image/*"
-    className="hidden-input"
-    id="backgroundUpload"
-    onChange={(e) => handleBackgroundUpload(e, "backgroundImage")}
-  />
-{/* 
-  <label htmlFor="backgroundUpload" className="edit-background-btn">
-    Change Background
-  </label> */}
-</div>
-
-
-      <div className="profile-pic-container">
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden-input"
-          id="profilePicUpload"
-          onChange={(e) => handleImageUpload(e, "profilePic")}
-        />
-        <label htmlFor="profilePicUpload">
-          <img src={user.profilePic} alt="Profile" className="profile-pic" />
-        </label>
+    <div className="profile-container">
+      <div className="background">
+        <img src={user.background} alt="Background" className="background-img" />
       </div>
 
-      <div className="profile-info">
-        {isEditing ? (
-          <>
-            <input
-              type="text"
-              value={user.name}
-              onChange={(e) => handleInputChange("name", e.target.value)}
-              className="edit-input"
-            />
-            <input
-              type="text"
-              value={user.username}
-              onChange={(e) => handleInputChange("username", e.target.value)}
-              className="edit-input"
-            />
-            <textarea
-              value={user.bio}
-              onChange={(e) => handleInputChange("bio", e.target.value)}
-              className="edit-input"
-            />
-          </>
-        ) : (
-          <>
-            <h2 className="profile-name">{user.name}</h2>
-            <p className="profile-username">{user.username}</p>
-            <p className="profile-bio">{user.bio}</p>
-          </>
-        )}
-
-        <div className="profile-stats">
-          <div>{user.posts} Posts</div>
-          <div>{user.followers} Followers</div>
-          <div>{user.following} Following</div>
+      <div className="profile-content">
+        <div className="profile-pic">
+          <img src={user.image} alt="Profile" />
         </div>
 
-        <div className="btn-group">
-          <button onClick={handleEditToggle} className="profile-btn">
-            {isEditing ? <FaCheck /> : <FaEdit />} {isEditing ? "Save" : "Edit Profile"}
+        <div className="profile-left">
+          <button className="profile-btn">
+            Share Profile  <FaShareAlt />
           </button>
-          <button onClick={handleFollowToggle} className="profile-btn">
-            <FaUserPlus /> {isFollowing ? "Unfollow" : "Follow"}
-          </button>
+          <p className="p1"> {user.followers} </p>
+          <p className="p2"> Followers</p>
         </div>
+
+        {/* <FaUserCheck />
+        <FaUsers /> */}
+
+        <div className="profile-right">
+          <button className="profile-btn" onClick={handleEditClick}>
+            Edit Profile  <FaUserEdit />
+          </button>
+          <p className="p1"> {user.following }</p>
+          
+          <p className="p2"> Following</p>
+          
+         
+        </div>
+
+        <h2 className="user-name1">{user.name}</h2>
+        <p className="user-bio">{user.bio}</p>
       </div>
 
-      <div className="tweet-section">
-        <input
-          type="text"
-          placeholder="What's happening?"
-          value={newTweetText}
-          onChange={(e) => setNewTweetText(e.target.value)}
-          className="tweet-input"
-        />
-        <button onClick={handleAddTweet} className="tweet-btn">
-          Tweet
-        </button>
-      </div>
+      <div className="rounded-container">
+      <div className="icon"><FaHome /></div>
+      <div className="icon"><FaPlus /></div>
+      <div className="icon"><FaComment /></div>
+      <div className="icon"><FaLocationArrow /></div>
+    </div>
 
-      <div className="tweet-list">
-        {tweets.map((tweet, index) => (
-          <div key={index} className="tweet-item">
-            <div className="tweet-header">
-              <img src={tweet.user.profilePic} alt="User" className="tweet-user-pic" />
-              <div className="tweet-user-info">
-                <span className="tweet-user-name">{tweet.user.name}</span>
-                <span className="tweet-time">{formatTime(tweet.timestamp)}</span>
+
+
+      {isEditing && (
+  <div className="edit-section">
+    {/* Other Profiles - Left Side */}
+    {showOtherProfiles && (
+      <div className="other-profiles left">
+        <div className="profiles-scroll">
+          {otherUsers.map((u) => (
+            <div key={u.id} className="other-user">
+              <div className="user-info">
+                <img src={u.image} alt={u.name} className="other-user-img" />
+                <p className="user-name">{u.name}</p>
               </div>
-            </div>
-
-            <p className="tweet-text">{tweet.text}</p>
-
-            <div className="tweet-actions">
-              <button onClick={() => handleLike(index)} className="like-btn">
-                <FaHeart /> {tweet.likes}
-              </button>
-              <button onClick={() => handleComment(index)} className="like-btn">
-                <FaComment /> {tweet.comments}
-              </button>
-              <button onClick={() => handleDeleteTweet(index)} className="delete-btn">
-                <FaTrash />
+              <button
+                className={`follow-btn ${u.following ? "following" : ""}`}
+                onClick={() => handleFollowToggle(u.id)}
+              >
+                {u.following ? "Following" : "Follow"}
               </button>
             </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* Edit Form - Center */}
+    <div className="edit-form">
+      <input
+        type="text"
+        value={editedUser.name}
+        onChange={(e) => setEditedUser({ ...editedUser, name: e.target.value })}
+        placeholder="Full Name"
+      />
+      <input
+        type="email"
+        value={editedUser.email || ""}
+        onChange={(e) => setEditedUser({ ...editedUser, email: e.target.value })}
+        placeholder="Email"
+      />
+      <input
+        type="password"
+        value={editedUser.password || ""}
+        onChange={(e) => setEditedUser({ ...editedUser, password: e.target.value })}
+        placeholder="Password"
+      />
+      <input
+        type="password"
+        value={editedUser.confirmPassword || ""}
+        onChange={(e) => setEditedUser({ ...editedUser, confirmPassword: e.target.value })}
+        placeholder="Re-enter Password"
+      />
+      <button className="save-btn" onClick={handleSaveClick}>Submit</button>
+    </div>
+
+    {/* Other Profiles - Right Side */}
+    {showOtherProfiles && (
+      <div className="other-profiles right">
+        <div className="profiles-scroll">
+          {otherUsers.map((u) => (
+            <div key={u.id} className="other-user">
+              <div className="user-info">
+                <img src={u.image} alt={u.name} className="other-user-img" />
+                <p className="user-name">{u.name}</p>
+              </div>
+              <button
+                className={`follow-btn ${u.following ? "following" : ""}`}
+                onClick={() => handleFollowToggle(u.id)}
+              >
+                {u.following ? "Following" : "Follow"}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
+  {/* ✅ Integrated Post Section Directly */}
+  <div className="posts-section">
+        {posts.length === 0 ? (
+          <p>No posts available.</p>
+        ) : (
+          <div className="posts-grid">
+            {posts.map((post) => (
+              <div key={post.id} className="post">
+                <div className="post-header">
+                  <img src="g.jpg" alt="Profile" className="profile-pic" />
+                  <h3>{post.user}</h3>
+                </div>
+                <p>{post.content}</p>
+                <div className="post-footer">
+                  <span onClick={() => handleLikeToggle(post.id)} className="like-btn">
+                    {post.liked ? <FaHeart className="liked" /> : <FaRegHeart className="unliked" />}
+                  </span>
+                  {post.likes}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
 };
-
 export default UserProfile;

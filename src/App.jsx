@@ -1,10 +1,9 @@
 import React from "react";
+import UserProfile from "../user-profile/UserProfile";
 
 const App = () => {
   return (
-    <div className="app">
-      <h1>Hello, Vite + React!</h1>
-    </div>
+    <UserProfile />
   );
 };
 

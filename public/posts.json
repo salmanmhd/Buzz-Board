@@ -1,0 +1,41 @@
+[
+    {
+      "id": 1,
+      "user": "priti Madake",
+      "content": "Excited to start my new project! ",
+      "likes": 50
+    },
+    {
+      "id": 2,
+      "user": "priti Madake",
+      "content": "Loving React so far! ",
+      "likes": 75
+    },
+    
+    {
+      "id": 3,
+      "user": "priti Madake",
+      "content": "Excited to start my new project! ",
+      "likes": 50
+    },
+    {
+      "id": 4,
+      "user": "priti Madake",
+      "content": "Loving React so far! ",
+      "likes": 75
+    },
+    
+    {
+      "id": 5,
+      "user": "priti Madake",
+      "content": "Excited to start my new project! ",
+      "likes": 50
+    },
+    {
+      "id": 6,
+      "user": "priti Madake",
+      "content": "Loving React so far! ",
+      "likes": 75
+    }
+  ]
+  
